@@ -1,0 +1,300 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id       String      @id @default(uuid())
+  role     AdminRole
+  status   AdminStatus @default(ok)
+  User     User?       @relation(fields: [userId], references: [id])
+  userId   String      @unique
+  AdminLog AdminLog[]
+}
+
+model AdminLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  Admin      Admin?   @relation(fields: [adminId], references: [id])
+  adminId    String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum AdminRole {
+  admin
+  staff
+}
+
+enum AdminStatus {
+  ok
+  removed
+}
+
+model Application {
+  id             String            @id @default(uuid())
+  status         ApplicationStatus @default(ok)
+  JobPost        JobPost?          @relation(fields: [jobPostId], references: [id])
+  jobPostId      String?
+  User           User?             @relation(fields: [userId], references: [id])
+  userId         String?
+  ApplicationLog ApplicationLog[]
+}
+
+model ApplicationLog {
+  id            String       @id @default(uuid())
+  datetime      DateTime     @default(now())
+  type          String       @db.VarChar(255)
+  content       Json         @db.Json
+  Application   Application? @relation(fields: [applicationId], references: [id])
+  applicationId String?
+  Operator      User?        @relation("Operator", fields: [operatorId], references: [id])
+  operatorId    String?
+}
+
+enum ApplicationStatus {
+  ok
+  accepted
+  declined
+  removed
+}
+
+model Company {
+  id           String        @id @default(uuid())
+  name         String        @db.VarChar(255)
+  description  String        @db.Text
+  profileImage String?       @db.VarChar(255)
+  profileCover String?       @db.VarChar(255)
+  status       CompanyStatus @default(ok)
+  JobPost      JobPost[]
+  User         User?         @relation(fields: [userId], references: [id])
+  userId       String?       @unique
+  CompanyLog   CompanyLog[]
+}
+
+model CompanyLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  Company    Company? @relation(fields: [companyId], references: [id])
+  companyId  String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum CompanyStatus {
+  ok
+  removed
+  suspended
+}
+
+model Course {
+  id                 String               @id @default(uuid())
+  name               String               @db.VarChar(255)
+  status             CourseStatus         @default(ok)
+  Major              Major[]
+  StudentInformation StudentInformation[]
+  CourseLog          CourseLog[]
+}
+
+model CourseLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  Course     Course?  @relation(fields: [courseId], references: [id])
+  courseId   String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum CourseStatus {
+  ok
+  removed
+}
+
+model JobPost {
+  id          String        @id @default(uuid())
+  title       String        @db.VarChar(255)
+  description String        @db.Text
+  slots       Int
+  status      JobPostStatus @default(ok)
+  Application Application[]
+  Company     Company?      @relation(fields: [companyId], references: [id])
+  companyId   String?
+  JobPostLog  JobPostLog[]
+}
+
+model JobPostLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  JobPost    JobPost? @relation(fields: [jobPostId], references: [id])
+  jobPostId  String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum JobPostStatus {
+  ok
+  closed
+  removed
+}
+
+model Major {
+  id                 String               @id @default(uuid())
+  name               String               @db.VarChar(255)
+  status             MajorStatus          @default(ok)
+  Course             Course?              @relation(fields: [courseId], references: [id])
+  courseId           String?
+  StudentInformation StudentInformation[]
+  MajorLog           MajorLog[]
+}
+
+model MajorLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  Major      Major?   @relation(fields: [majorId], references: [id])
+  majorId    String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum MajorStatus {
+  ok
+  removed
+}
+
+model Resume {
+  id          String       @id @default(uuid())
+  fileName    String       @db.VarChar(255)
+  storageName String       @default(uuid()) @db.VarChar(255)
+  status      ResumeStatus @default(ok)
+  User        User?        @relation(fields: [userId], references: [id])
+  userId      String?
+  ResumeLog   ResumeLog[]
+}
+
+model ResumeLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  Resume     Resume?  @relation(fields: [majorId], references: [id])
+  majorId    String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum ResumeStatus {
+  ok
+  removed
+}
+
+model StudentInformation {
+  id                    String                  @id @default(uuid())
+  schoolId              String                  @db.VarChar(255)
+  Course                Course?                 @relation(fields: [courseId], references: [id])
+  courseId              String?
+  Major                 Major?                  @relation(fields: [majorId], references: [id])
+  majorId               String?
+  User                  User?                   @relation(fields: [userId], references: [id])
+  userId                String                  @unique
+  StudentInformationLog StudentInformationLog[]
+}
+
+model StudentInformationLog {
+  id                   String              @id @default(uuid())
+  datetime             DateTime            @default(now())
+  type                 String              @db.VarChar(255)
+  content              Json                @db.Json
+  StudentInformation   StudentInformation? @relation(fields: [studentInformationId], references: [id])
+  studentInformationId String?
+  Operator             User?               @relation("Operator", fields: [operatorId], references: [id])
+  operatorId           String?
+}
+
+model User {
+  id                            String                  @id @default(uuid())
+  username                      String                  @unique @default(uuid())
+  password                      String?                 @db.VarChar(255)
+  status                        UserStatus              @default(unverified)
+  Admin                         Admin?
+  Application                   Application[]
+  Company                       Company?
+  Resume                        Resume[]
+  StudentInformation            StudentInformation?
+  UserInformation               UserInformation?
+  UserLog                       UserLog[]
+  AdminLogOperator              AdminLog[]              @relation("Operator")
+  ApplicationLogOperator        ApplicationLog[]        @relation("Operator")
+  CompanyLogOperator            CompanyLog[]            @relation("Operator")
+  CourseLogOperator             CourseLog[]             @relation("Operator")
+  JobPostLogOperator            JobPostLog[]            @relation("Operator")
+  MajorLogOperator              MajorLog[]              @relation("Operator")
+  ResumeLogOperator             ResumeLog[]             @relation("Operator")
+  StudentInformationLogOperator StudentInformationLog[] @relation("Operator")
+  UserLogOperator               UserLog[]               @relation("Operator")
+  UserInformationLogOperator    UserInformationLog[]    @relation("Operator")
+}
+
+model UserLog {
+  id         String   @id @default(uuid())
+  datetime   DateTime @default(now())
+  type       String   @db.VarChar(255)
+  content    Json     @db.Json
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  Operator   User?    @relation("Operator", fields: [operatorId], references: [id])
+  operatorId String?
+}
+
+enum UserStatus {
+  unverified
+  ok
+  deactivated
+  removed
+  suspended
+}
+
+model UserInformation {
+  id                 String               @id @default(uuid())
+  lastName           String               @db.VarChar(255)
+  firstName          String               @db.VarChar(255)
+  middleName         String               @db.VarChar(255)
+  suffix             String               @db.VarChar(255)
+  gender             Gender
+  birthDate          DateTime             @db.Date
+  User               User?                @relation(fields: [userId], references: [id])
+  userId             String               @unique
+  UserInformationLog UserInformationLog[]
+}
+
+model UserInformationLog {
+  id                String           @id @default(uuid())
+  datetime          DateTime         @default(now())
+  type              String           @db.VarChar(255)
+  content           Json             @db.Json
+  UserInformation   UserInformation? @relation(fields: [userInformationId], references: [id])
+  userInformationId String?
+  Operator          User?            @relation("Operator", fields: [operatorId], references: [id])
+  operatorId        String?
+}
+
+enum Gender {
+  male
+  female
+}

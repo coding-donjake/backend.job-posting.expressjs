@@ -1,0 +1,40 @@
+POST http://localhost:5000/user/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCQwWnJJdUU2NklMYW5BL0RDd0FnM0p1OFhHeDBNd1M2OHYwUnc3SlJ6QTJ6VFUzUXJ0enA2RyIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2OTQwNzI3NjMsImV4cCI6MTY5NDE1OTE2M30.ICaZn4v2bALnaavIDF5Mg1tAb3WG6Xko85cvuRxRcbI
+Content-Type: application/json
+
+{
+  "data": {
+    "password": "1234",
+    "status": "nur"
+  }
+}
+
+###
+
+GET http://localhost:5000/user/get
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCR4MS93bVRUMTVFOUV5SlJWRmVpRm11TXcwL3FBbm4zaUZEUU9EdElPU1RQMDU4bzNFMFVmaSIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2OTQwNTQyMDYsImV4cCI6MTY5NDE0MDYwNn0.ryVw42quPs_VzOAKoAaaYsRxSsIelutSAp-HoapvRm0
+Content-Type: application/json
+
+###
+
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234"
+}
+
+###
+
+POST http://localhost:5000/user/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCR4MS93bVRUMTVFOUV5SlJWRmVpRm11TXcwL3FBbm4zaUZEUU9EdElPU1RQMDU4bzNFMFVmaSIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2OTQwNTQyMDYsImV4cCI6MTY5NDE0MDYwNn0.ryVw42quPs_VzOAKoAaaYsRxSsIelutSAp-HoapvRm0
+Content-Type: application/json
+
+{
+  "id": "c0a71760-086f-42ed-9219-cffd5ed0dacd",
+  "data": {
+    "username": "staff",
+    "status": "ok"
+  }
+}

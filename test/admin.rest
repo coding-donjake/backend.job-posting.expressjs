@@ -1,0 +1,24 @@
+POST http://localhost:5000/admin/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCQwWnJJdUU2NklMYW5BL0RDd0FnM0p1OFhHeDBNd1M2OHYwUnc3SlJ6QTJ6VFUzUXJ0enA2RyIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2OTQwNzI3NjMsImV4cCI6MTY5NDE1OTE2M30.ICaZn4v2bALnaavIDF5Mg1tAb3WG6Xko85cvuRxRcbI
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": "c0a71760-086f-42ed-9219-cffd5ed0dacd",
+    "role": "staff"
+  }
+}
+
+###
+
+POST http://localhost:5000/admin/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCQwWnJJdUU2NklMYW5BL0RDd0FnM0p1OFhHeDBNd1M2OHYwUnc3SlJ6QTJ6VFUzUXJ0enA2RyIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2OTQwNzI3NjMsImV4cCI6MTY5NDE1OTE2M30.ICaZn4v2bALnaavIDF5Mg1tAb3WG6Xko85cvuRxRcbI
+Content-Type: application/json
+
+{
+  "id": "9ca16a1b-8ba1-4b84-a0a8-393ea6c70d5b",
+  "data": {
+    "role": "admin",
+    "status": "ok"
+  }
+}

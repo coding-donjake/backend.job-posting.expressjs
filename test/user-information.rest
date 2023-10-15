@@ -1,0 +1,15 @@
+POST http://localhost:5000/user-information/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsInVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCQwWnJJdUU2NklMYW5BL0RDd0FnM0p1OFhHeDBNd1M2OHYwUnc3SlJ6QTJ6VFUzUXJ0enA2RyIsInN0YXR1cyI6InVudmVyaWZpZWQiLCJpYXQiOjE2OTQwNzI3NjMsImV4cCI6MTY5NDE1OTE2M30.ICaZn4v2bALnaavIDF5Mg1tAb3WG6Xko85cvuRxRcbI
+Content-Type: application/json
+
+{
+  "data": {
+    "userId": "fe99dc63-fa2d-4bfa-86db-165866b080d5",
+    "lastname": "Grant",
+    "firstname": "Mark",
+    "middlename": "Spencer",
+    "suffix": "",
+    "gender": "male",
+    "birthdate": "2000-01-01T00:00:00Z"
+  }
+}
